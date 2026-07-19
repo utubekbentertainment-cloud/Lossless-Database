@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#121212">
+    <title>Pending Contributions — Echo Music Lossless</title>
+    <meta name="description" content="View all pending lossless contributions waiting to be merged into the Echo Music Lossless database.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lossless.echomusic.fun/pending.html">
+    <meta property="og:title" content="Pending Contributions — Echo Music Lossless">
+    <meta property="og:description" content="See what lossless contributions are waiting to be reviewed and merged.">
+    <meta property="og:image" content="https://lossless.echomusic.fun/App%20Logo/echo.png">
+
+    <link rel="icon" type="image/png" href="App Logo/echo.png">
+    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="top-bar">
+        <div class="top-bar-content">
+            <a href="index.html" class="brand">
+                <img src="App Logo/echo.png" alt="Echo Music Logo" class="app-icon">
+                <span class="copyright">ECHO MUSIC</span>
+            </a>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="developer.html" class="nav-support-btn"><i class="fas fa-code" style="margin-right: 0.3rem;"></i>Developer</a>
+                <a href="pending.html" class="nav-support-btn nav-active-btn"><i class="fas fa-code-pull-request" style="margin-right: 0.3rem;"></i>Pending PRs</a>
+                <a href="https://support.iad1tya.cyou" target="_blank" rel="noopener" class="nav-support-btn"><i class="fas fa-hand-holding-heart" style="margin-right: 0.3rem;"></i>Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header style="margin-bottom: 3rem;">
+            <h1 id="main-title">Pending Contributions</h1>
+            <p>These lossless track submissions are waiting to be reviewed and merged. Once approved, they'll appear in the main track directory.</p>
+        </header>
+
+        <section class="status-bar" style="margin-top: 0;">
+            <h2>Open Pull Requests</h2>
+            <span id="pr-count">Loading...</span>
+        </section>
+
+        <section id="pending-grid" class="pending-list">
+            <div class="loader" id="loading-spinner"></div>
+        </section>
+
+        <div id="empty-state" style="display: none;">
+            <div class="empty-state" style="padding: 4rem 2rem; text-align: center;">
+                <i class="fas fa-check-double" style="font-size: 2.5rem; color: #059669; margin-bottom: 1rem;"></i>
+                <p style="font-size: 1.1rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.5rem;">All caught up!</p>
+                <p style="color: var(--text-dim);">There are no pending lossless contributions at the moment. Be the first to <a href="contribute.html" style="color: var(--accent-monochrome); font-weight: 600;">submit one</a>!</p>
+            </div>
+        </div>
+
+        <div id="error-state" style="display: none;">
+            <div class="error-state" style="padding: 2.5rem; text-align: center;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p id="error-message">Failed to load pending contributions.</p>
+                <button onclick="loadPendingPRs()" class="btn btn-primary" style="margin-top: 1rem; font-size: 0.85rem;">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div id="support-section" class="footer-content">
+            <div class="footer-credits">
+                <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.6;">Licensed under <a href="LICENSE" target="_blank">GPL-3.0</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const GITHUB_API_URL = 'https://api.github.com';
+        const TARGET_OWNER = 'EchoMusicApp';
+        const TARGET_REPO = 'Lossless';
+
+        async function loadPendingPRs() {
+            const grid = document.getElementById('pending-grid');
+            const emptyState = document.getElementById('empty-state');
+            const errorState = document.getElementById('error-state');
+            const prCountEl = document.getElementById('pr-count');
+
+            grid.innerHTML = '<div class="loader" id="loading-spinner"></div>';
+            emptyState.style.display = 'none';
+            errorState.style.display = 'none';
+
+            try {
+                const response = await fetch(
+                    `${GITHUB_API_URL}/repos/${TARGET_OWNER}/${TARGET_REPO}/pulls?state=open&per_page=100`,
+                    { headers: { 'Accept': 'application/vnd.github.v3+json' } }
+                );
+
+                if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
+
+                const pullRequests = await response.json();
+
+                const trackPRs = pullRequests.filter(pr =>
+                    pr.title.toLowerCase().includes('lossless') ||
+                    pr.title.toLowerCase().includes('feat:') ||
+                    pr.title.toLowerCase().includes('add')
+                );
+
+                grid.innerHTML = '';
+
+                if (trackPRs.length === 0) {
+                    emptyState.style.display = 'block';
+                    prCountEl.textContent = '0 pending';
+                    return;
+                }
+
+                prCountEl.textContent = `${trackPRs.length} pending`;
+
+                for (const pr of trackPRs) {
+                    const songs = parseSongsFromPR(pr);
+                    const audioUrl = await fetchPRAudioUrl(pr);
+                    const card = createPRCard(pr, songs, audioUrl);
+                    grid.appendChild(card);
+                }
+
+            } catch (error) {
+                console.error('Error loading PRs:', error);
+                grid.innerHTML = '';
+                errorState.style.display = 'block';
+                document.getElementById('error-message').textContent =
+                    `Failed to load pending contributions: ${error.message}`;
+                prCountEl.textContent = 'Error';
+            }
+        }
+
+        function parseSongsFromPR(pr) {
+            const songs = [];
+            const body = pr.body || '';
+
+            // Try to parse table rows from the PR body: | Song Title | Artist |
+            const tableRowRegex = /\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|/g;
+            let match;
+            let isHeader = true;
+
+            while ((match = tableRowRegex.exec(body)) !== null) {
+                const col1 = match[1].trim();
+                const col2 = match[2].trim();
+
+                // Skip table header and separator rows
+                if (col1 === 'Song Title' || col1.startsWith('---') || col1 === '---') {
+                    continue;
+                }
+
+                if (col1 && col2 && !col1.startsWith('---') && !col2.startsWith('---')) {
+                    songs.push({ song: col1, artist: col2 });
+                }
+            }
+
+            // Fallback: parse from PR title
+            if (songs.length === 0) {
+                const titleMatch = pr.title.match(/(?:add|feat:)\s*(?:lossless\s*(?:track\s*)?(?:for)?\s*)?(.+?)(?:\s*[—–-]\s*(.+))?$/i);
+                if (titleMatch) {
+                    songs.push({
+                        song: titleMatch[1]?.trim() || pr.title,
+                        artist: titleMatch[2]?.trim() || 'Unknown Artist'
+                    });
+                } else {
+                    songs.push({
+                        song: pr.title.replace(/^feat:\s*/i, '').trim(),
+                        artist: 'Unknown Artist'
+                    });
+                }
+            }
+
+            return songs;
+        }
+
+        async function fetchPRAudioUrl(pr) {
+            try {
+                const filesRes = await fetch(
+                    `${GITHUB_API_URL}/repos/${TARGET_OWNER}/${TARGET_REPO}/pulls/${pr.number}/files?per_page=100`,
+                    { headers: { 'Accept': 'application/vnd.github.v3+json' } }
+                );
+                if (!filesRes.ok) return parseLiveAudioFromPR(pr);
+
+                const files = await filesRes.json();
+
+                const audioFile = files.find(f =>
+                    f.filename.toLowerCase().endsWith('.flac')
+                );
+
+                if (audioFile) {
+                    const forkOwner = pr.head.user.login;
+                    const branchName = pr.head.ref;
+                    return `https://raw.githubusercontent.com/${forkOwner}/${TARGET_REPO}/${branchName}/${audioFile.filename}`;
+                }
+
+                return parseLiveAudioFromPR(pr);
+            } catch (e) {
+                return parseLiveAudioFromPR(pr);
+            }
+        }
+
+        function parseLiveAudioFromPR(pr) {
+            const body = pr.body || '';
+            const urlMatch = body.match(/(?:Track URL[^:\n]*|Path)[:\s]*`?([^`\s\n]+\.flac)`?/i);
+            if (urlMatch) return urlMatch[1];
+            const directMatch = body.match(/(https?:\/\/[^\s`\n]+\.flac)/i);
+            if (directMatch) return directMatch[1];
+            return null;
+        }
+
+        const albumArtCache = {};
+
+        async function fetchAlbumArt(song, artist, imgId) {
+            const query = `${song} ${artist}`;
+            if (albumArtCache[query]) {
+                const img = document.getElementById(imgId);
+                if (img) img.src = albumArtCache[query];
+                return;
+            }
+            try {
+                const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&limit=1&entity=song`);
+                const data = await res.json();
+                if (data.results && data.results.length > 0) {
+                    const artUrl = data.results[0].artworkUrl100.replace('100x100bb', '300x300bb');
+                    albumArtCache[query] = artUrl;
+                    const img = document.getElementById(imgId);
+                    if (img) img.src = artUrl;
+                }
+            } catch(e) {
+                console.warn('Failed to fetch album art for', query);
+            }
+        }
+
+        function createPRCard(pr, songs, audioUrl) {
+            const card = document.createElement('div');
+            card.className = 'pending-card';
+
+            const timeAgo = getTimeAgo(new Date(pr.created_at));
+
+            // Build songs list HTML
+            const songsHtml = songs.slice(0, 5).map(s => `
+                <div class="pending-song-item">
+                    <i class="fas fa-music"></i>
+                    <div class="pending-song-info">
+                        <span class="pending-song-name">${escapeHtml(s.song)}</span>
+                        <span class="pending-artist-name">${escapeHtml(s.artist)}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            const remainingCount = songs.length > 5 ? `<span class="pending-more">+${songs.length - 5} more songs</span>` : '';
+
+            const audioId = 'pending_aud_' + Math.random().toString(36).substr(2, 9);
+            const imgId = 'img_' + audioId;
+
+            card.innerHTML = `
+                <div class="pending-card-layout">
+                    <div class="pending-audio-col">
+                        ${audioUrl ? `
+                            <div class="pending-audio-wrapper" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #111, #222); position: relative; overflow: hidden;">
+                                <img id="${imgId}" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; z-index: 0; transition: opacity 0.3s;" />
+                                <div class="audio-waves" style="z-index: 1;">
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                </div>
+                                <audio id="${audioId}" src="${audioUrl}" style="display: none;"></audio>
+                                <button class="custom-play-btn" onclick="togglePlay(event, '${audioId}', this)" style="position: relative; z-index: 2;">
+                                    <i class="fas fa-play" style="margin-left: 4px;"></i>
+                                </button>
+                            </div>
+                        ` : `
+                            <div class="pending-audio-wrapper pending-no-audio">
+                                <i class="fas fa-music"></i>
+                                <span>No audio preview</span>
+                            </div>
+                        `}
+                    </div>
+                    <div class="pending-info-col">
+                        <div class="pending-header">
+                            <div class="pending-pr-meta">
+                                <span class="pending-pr-badge">
+                                    <i class="fas fa-code-pull-request"></i> PR #${pr.number}
+                                </span>
+                                <span class="pending-time">${timeAgo}</span>
+                            </div>
+                            <h3 class="pending-pr-title">${escapeHtml(pr.title)}</h3>
+                            <div class="pending-author">
+                                <img src="${pr.user.avatar_url}" alt="${pr.user.login}" class="pending-avatar">
+                                <span>by <strong>${escapeHtml(pr.user.login)}</strong></span>
+                            </div>
+                        </div>
+                        <div class="pending-songs-list">
+                            ${songsHtml}
+                            ${remainingCount}
+                        </div>
+                    </div>
+                    <a href="${pr.html_url}" target="_blank" rel="noopener" class="btn btn-secondary pending-view-btn btn-icon-text" style="flex-shrink: 0; padding: 0.5rem 1rem; border-radius: 8px; margin-left: auto;">
+                        <i class="fab fa-github"></i> <span>View PR</span>
+                    </a>
+                </div>
+            `;
+
+            if (songs.length > 0) {
+                fetchAlbumArt(songs[0].song, songs[0].artist, imgId);
+            }
+
+            return card;
+        }
+
+        function getTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            const intervals = [
+                { label: 'year', seconds: 31536000 },
+                { label: 'month', seconds: 2592000 },
+                { label: 'week', seconds: 604800 },
+                { label: 'day', seconds: 86400 },
+                { label: 'hour', seconds: 3600 },
+                { label: 'minute', seconds: 60 }
+            ];
+
+            for (const interval of intervals) {
+                const count = Math.floor(seconds / interval.seconds);
+                if (count >= 1) {
+                    return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
+                }
+            }
+            return 'just now';
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        document.addEventListener('DOMContentLoaded', loadPendingPRs);
+    </script>
+    <script>
+        (function() {
+            const btn = document.getElementById('nav-hamburger');
+            const menu = document.getElementById('nav-links');
+            if (!btn || !menu) return;
+            btn.addEventListener('click', () => {
+                const open = menu.classList.toggle('nav-open');
+                btn.classList.toggle('nav-hamburger--open', open);
+                btn.setAttribute('aria-expanded', open);
+            });
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    menu.classList.remove('nav-open');
+                    btn.classList.remove('nav-hamburger--open');
+                    btn.setAttribute('aria-expanded', 'false');
+                });
+            });
+        })();
+    </script>
+    <script>
+        function togglePlay(event, audioId, btn) {
+            event.preventDefault();
+            event.stopPropagation();
+            const audio = document.getElementById(audioId);
+            const icon = btn.querySelector('i');
+            
+            if (audio.paused) {
+                document.querySelectorAll('audio').forEach(a => {
+                    if (a.id !== audioId && !a.paused) a.pause();
+                });
+                document.querySelectorAll('.custom-play-btn i').forEach(i => {
+                    i.className = 'fas fa-play';
+                    i.style.marginLeft = '4px';
+                });
+                
+                audio.play();
+                icon.className = 'fas fa-pause';
+                icon.style.marginLeft = '0';
+            } else {
+                audio.pause();
+                icon.className = 'fas fa-play';
+                icon.style.marginLeft = '4px';
+            }
+            
+            audio.onended = () => {
+                icon.className = 'fas fa-play';
+                icon.style.marginLeft = '4px';
+            };
+        }
+    </script>
+</body>
+
+</html>

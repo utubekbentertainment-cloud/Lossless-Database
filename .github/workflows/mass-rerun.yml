@@ -1,0 +1,33 @@
+name: Mass Re-run Failed PRs
+on: workflow_dispatch
+
+permissions:
+  actions: write
+  pull-requests: read
+
+jobs:
+  rerun:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Rerun failed checks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Finding failed workflow runs..."
+          # Gets the IDs of up to 1000 recent failed workflow runs
+          FAILED_RUNS=$(gh run list --workflow "Validate Pull Request" --status failure --limit 1000 --json databaseId -q '.[].databaseId')
+          
+          if [ -z "$FAILED_RUNS" ]; then
+            echo "No failed runs found!"
+            exit 0
+          fi
+          
+          # Loop through and tell GitHub to re-run each one
+          echo "$FAILED_RUNS" | while read run_id; do
+            echo "Triggering re-run for run ID: $run_id"
+            gh run rerun $run_id --failed || echo "Skipping $run_id"
+            sleep 2 # Small pause to prevent GitHub rate limits
+          done

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#121212">
+    <title>Echo Music Lossless Hub - High-Fidelity Audio</title>
+    <meta name="description" content="Discover, search, and submit lossless FLAC audio tracks for the Echo Music App. Browse our active music database.">
+    <meta name="keywords" content="Echo Music, Lossless, Music App, FLAC, high fidelity, audio">
+    <link rel="canonical" href="https://lossless.echomusic.fun/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lossless.echomusic.fun/">
+    <meta property="og:title" content="Echo Music Lossless Hub - High-Fidelity Audio">
+    <meta property="og:description" content="Discover, search, and submit lossless FLAC audio tracks for the Echo Music App.">
+    <meta property="og:image" content="https://lossless.echomusic.fun/App%20Logo/echo.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://lossless.echomusic.fun/">
+    <meta property="twitter:title" content="Echo Music Lossless Hub - High-Fidelity Audio">
+    <meta property="twitter:description" content="Discover, search, and submit lossless FLAC audio tracks for the Echo Music App.">
+    <meta property="twitter:image" content="https://lossless.echomusic.fun/App%20Logo/echo.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Echo Music Lossless",
+      "url": "https://lossless.echomusic.fun/",
+      "description": "Discover and submit lossless FLAC audio tracks for the Echo Music App.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://lossless.echomusic.fun/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <link rel="icon" type="image/png" href="App Logo/echo.png">
+    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+    <nav class="top-bar">
+        <div class="top-bar-content">
+            <a href="index.html" class="brand">
+                <img src="App Logo/echo.png" alt="Echo Music Logo" class="app-icon">
+                <span class="copyright">ECHO MUSIC</span>
+            </a>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="developer.html" class="nav-support-btn"><i class="fas fa-code" style="margin-right: 0.3rem;"></i>Developer</a>
+                <a href="pending.html" class="nav-support-btn nav-pending-btn"><i class="fas fa-code-pull-request" style="margin-right: 0.3rem;"></i>Pending PRs</a>
+                <a href="https://support.iad1tya.cyou" target="_blank" rel="noopener" class="nav-support-btn"><i class="fas fa-hand-holding-heart" style="margin-right: 0.3rem;"></i>Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header>
+            <h1 id="main-title">Echo Music Lossless</h1>
+            <p>The ultimate hub for high-fidelity audio. Personalize your music experience with lossless FLAC tracks in Echo Music.</p>
+            <div class="cta-container" style="margin-top: 2.5rem;">
+                <a href="contribute.html" class="btn btn-primary">
+                    <i class="fab fa-github"></i> Contribute through GitHub
+                </a>
+                <a href="#gallery-header" class="btn btn-secondary">
+                    <i class="fas fa-play-circle"></i> Browse Tracks
+                </a>
+            </div>
+        </header>
+
+        <section id="guide-section" class="instructions-section">
+            <h2 class="section-title">How to add a lossless track</h2>
+            <div class="instruction-grid">
+                <article class="step-card">
+                    <span class="step-number">01</span>
+                    <h3>Open the Portal</h3>
+                    <p>Head to the <a href="contribute.html"><strong>Contribute Portal</strong></a> and log in with your GitHub account. The portal handles forking, branching, and Pull Requests for you automatically.</p>
+                </article>
+
+                <article class="step-card">
+                    <span class="step-number">02</span>
+                    <h3>Upload Your Audio</h3>
+                    <p><strong>Upload a new audio file</strong> (<code>.flac</code>, max 99MB). We only support FLAC format for lossless quality.</p>
+                </article>
+
+                <article class="step-card">
+                    <span class="step-number">03</span>
+                    <h3>Add Metadata</h3>
+                    <p>Provide the <strong>Song Title</strong> and <strong>Artist Name</strong> so the track can be indexed properly in the library.</p>
+                </article>
+
+                <article class="step-card">
+                    <span class="step-number">04</span>
+                    <h3>Listen in App</h3>
+                    <p>Once merged, you can listen to the lossless audio tracks directly from the web or app.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="gallery-header" class="status-bar">
+            <h2>Track Directory</h2>
+            <span id="song-count">Loading database...</span>
+        </section>
+
+        <div id="local-warning" class="local-warning-banner" style="display: none;"></div>
+        <section class="search-container">
+            <input type="text" id="search-input" placeholder="Search by song or artist..." autocomplete="off">
+        </section>
+
+        <section id="track-grid" class="grid">
+            <div class="loader" id="loading-spinner"></div>
+        </section>
+
+        <section class="availability-section" style="margin-top: 6rem;">
+            <h2 class="section-title">Full Availability List</h2>
+            <div id="availability-list" class="list-container">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div id="support-section" class="footer-content">
+            <div class="support-box">
+                <h3>Need Help or Have Issues?</h3>
+                <p>If you encounter any issues with tracks, please report them, or join our community groups to get support and stay updated.</p>
+                <div class="support-buttons">
+                    <a href="https://github.com/EchoMusicApp/Lossless/issues" class="btn-support github" target="_blank" rel="noopener">
+                        <i class="fab fa-github"></i> Create GitHub Issue
+                    </a>
+                    <a href="https://discord.com/invite/EcfV3AxH5c" class="btn-support discord" target="_blank" rel="noopener">
+                        <i class="fab fa-discord"></i> Join Discord
+                    </a>
+                    <a href="https://t.me/EchoMusicApp" class="btn-support telegram" target="_blank" rel="noopener">
+                        <i class="fab fa-telegram"></i> Join Telegram
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-credits">
+                <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.6;">Licensed under <a href="LICENSE" target="_blank">GPL-3.0</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let allItems = [];
+
+        const fallbackItems = [];
+
+        function handleSearch(term) {
+            if (term.trim() === '') {
+                renderGallery(allItems.slice(0, 3));
+                renderAvailability(allItems);
+                const isLocal = window.location.protocol === 'file:';
+                document.getElementById('song-count').textContent = `${allItems.length} ${isLocal ? 'preview' : 'active'} tracks`;
+            } else {
+                const filtered = allItems.filter(item => {
+                    const combined = `${item.song} ${item.artist}`.toLowerCase();
+                    return combined.includes(term);
+                });
+                renderGallery(filtered);
+                renderAvailability(filtered);
+                document.getElementById('song-count').textContent = filtered.length === 1 ? '1 match found' : `${filtered.length} matches found`;
+            }
+        }
+        const albumArtCache = {};
+
+        async function fetchAlbumArt(song, artist, imgId) {
+            const query = `${song} ${artist}`;
+            if (albumArtCache[query]) {
+                const img = document.getElementById(imgId);
+                if (img) img.src = albumArtCache[query];
+                return;
+            }
+            try {
+                const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&limit=1&entity=song`);
+                const data = await res.json();
+                if (data.results && data.results.length > 0) {
+                    const artUrl = data.results[0].artworkUrl100.replace('100x100bb', '300x300bb');
+                    albumArtCache[query] = artUrl;
+                    const img = document.getElementById(imgId);
+                    if (img) img.src = artUrl;
+                }
+            } catch(e) {
+                console.warn('Failed to fetch album art for', query);
+            }
+        }
+
+        async function loadTracks() {
+            try {
+                const response = await fetch(`./music.json?v=${Date.now()}`);
+                if (!response.ok) throw new Error('Failed to load metadata');
+
+                const data = await response.json();
+                allItems = data.items || [];
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const query = urlParams.get('search');
+                if (query) {
+                    document.getElementById('search-input').value = query;
+                    handleSearch(query.toLowerCase());
+                } else {
+                    handleSearch('');
+                }
+            } catch (error) {
+                console.warn("CORS/Fetch restriction detected. Falling back to local preview database.", error);
+                
+                allItems = fallbackItems;
+                
+                if (window.location.protocol === 'file:') {
+                    const warningBanner = document.getElementById('local-warning');
+                    warningBanner.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Local browser policy blocks <code>music.json</code> relative fetches. Showing <strong>${allItems.length} local preview tracks</strong>. Start a server with <code>npx serve</code> or view the deployed version to load the full list.</span>
+                    `;
+                    warningBanner.style.display = 'flex';
+                }
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const query = urlParams.get('search');
+                if (query) {
+                    document.getElementById('search-input').value = query;
+                    handleSearch(query.toLowerCase());
+                } else {
+                    handleSearch('');
+                }
+            }
+        }
+
+        function renderGallery(items) {
+            const grid = document.getElementById('track-grid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <p class="empty-state">
+                        No matching songs found in the gallery.
+                    </p>
+                `;
+                return;
+            }
+
+            items.forEach((item, index) => {
+                const card = document.createElement('article');
+                card.className = 'track-card';
+                
+                let resolvedUrl = item.url;
+                try {
+                    const parsedUrl = new URL(item.url);
+                    const match = parsedUrl.pathname.match(/\/(Music)\/(.+)$/i);
+                    if (match) {
+                        resolvedUrl = `https://raw.githubusercontent.com/EchoMusicApp/Lossless/main/Music/${match[2]}`;
+                    }
+                } catch (e) {
+                }
+
+                const audioId = "aud_" + Math.random().toString(36).substr(2, 9) + "_" + index;
+                const imgId = "img_" + audioId;
+
+                card.innerHTML = `
+                    <div class="audio-preview" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #111, #222); position: relative; overflow: hidden;">
+                        <img id="${imgId}" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; z-index: 0; transition: opacity 0.3s;" />
+                        <div class="audio-waves" style="z-index: 1;">
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
+                        <audio id="${audioId}" style="display: none;"></audio>
+                        <button class="custom-play-btn" onclick="togglePlay(event, '${audioId}', this)" style="position: relative; z-index: 2;">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="card-info">
+                        <h2>${item.song}</h2>
+                        <h3>${item.artist}</h3>
+                    </div>
+                    <a href="${resolvedUrl}" download class="btn btn-secondary btn-icon-text" style="padding: 0.5rem 0.8rem; font-size: 0.8rem; border-radius: 8px; flex-shrink: 0; margin-left: auto;">
+                        <i class="fas fa-download"></i> <span>FLAC</span>
+                    </a>
+                `;
+                grid.appendChild(card);
+
+                const audio = document.getElementById(audioId);
+                audio.src = resolvedUrl;
+                
+                fetchAlbumArt(item.song, item.artist, imgId);
+            });
+        }
+
+        function renderAvailability(items) {
+            const list = document.getElementById('availability-list');
+            list.innerHTML = '';
+
+            if (items.length === 0) {
+                list.innerHTML = `<p class="empty-state" style="padding: 2rem;">No songs found matching that search.</p>`;
+                return;
+            }
+
+            items.forEach((item) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'list-item';
+                itemEl.innerHTML = `
+                    <div class="item-info">
+                        <strong>${item.song}</strong>
+                        <span>${item.artist}</span>
+                    </div>
+                    <div class="status-badge">
+                        <i class="fas fa-check-circle"></i> Added
+                    </div>
+                `;
+                list.appendChild(itemEl);
+            });
+        }
+
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            handleSearch(e.target.value.toLowerCase());
+        });
+
+        document.addEventListener('DOMContentLoaded', loadTracks);
+    </script>
+    <script>
+        (function() {
+            const btn = document.getElementById('nav-hamburger');
+            const menu = document.getElementById('nav-links');
+            if (!btn || !menu) return;
+            btn.addEventListener('click', () => {
+                const open = menu.classList.toggle('nav-open');
+                btn.classList.toggle('nav-hamburger--open', open);
+                btn.setAttribute('aria-expanded', open);
+            });
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    menu.classList.remove('nav-open');
+                    btn.classList.remove('nav-hamburger--open');
+                    btn.setAttribute('aria-expanded', 'false');
+                });
+            });
+        })();
+    </script>
+    <script>
+        function togglePlay(event, audioId, btn) {
+            event.preventDefault();
+            event.stopPropagation();
+            const audio = document.getElementById(audioId);
+            const icon = btn.querySelector('i');
+            
+            if (audio.paused) {
+                // Pause all other audio elements first
+                document.querySelectorAll('audio').forEach(a => {
+                    if (a.id !== audioId && !a.paused) {
+                        a.pause();
+                    }
+                });
+                // Reset all icons
+                document.querySelectorAll('.custom-play-btn i').forEach(i => {
+                    i.className = 'fas fa-play';
+                    i.style.marginLeft = '4px';
+                });
+                
+                audio.play();
+                icon.className = 'fas fa-pause';
+                icon.style.marginLeft = '0';
+            } else {
+                audio.pause();
+                icon.className = 'fas fa-play';
+                icon.style.marginLeft = '4px';
+            }
+            
+            audio.onended = () => {
+                icon.className = 'fas fa-play';
+                icon.style.marginLeft = '4px';
+            };
+        }
+    </script>
+</body>
+
+</html>

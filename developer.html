@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#121212">
+    <title>Developer Guide — Echo Music Lossless</title>
+    <meta name="description" content="Learn how to integrate Echo Music Lossless audio into your app or website. Complete API reference, code examples, and integration guides.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lossless.echomusic.fun/developer.html">
+    <meta property="og:title" content="Developer Guide — Echo Music Lossless">
+    <meta property="og:description" content="Integrate Echo Music Lossless audio into your own app or website with our developer guide.">
+    <meta property="og:image" content="https://lossless.echomusic.fun/App%20Logo/echo.png">
+
+    <link rel="icon" type="image/png" href="App Logo/echo.png">
+    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="top-bar">
+        <div class="top-bar-content">
+            <a href="index.html" class="brand">
+                <img src="App Logo/echo.png" alt="Echo Music Logo" class="app-icon">
+                <span class="copyright">ECHO MUSIC</span>
+            </a>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="developer.html" class="nav-support-btn nav-active-btn"><i class="fas fa-code" style="margin-right: 0.3rem;"></i>Developer</a>
+                <a href="pending.html" class="nav-support-btn nav-pending-btn"><i class="fas fa-code-pull-request" style="margin-right: 0.3rem;"></i>Pending PRs</a>
+                <a href="https://support.iad1tya.cyou" target="_blank" rel="noopener" class="nav-support-btn"><i class="fas fa-hand-holding-heart" style="margin-right: 0.3rem;"></i>Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container dev-container">
+        <header style="margin-bottom: 4rem;">
+            <h1 id="main-title">Integrate Lossless Audio<br>Into Your App</h1>
+            <p>Use the Echo Music Lossless database to add high-fidelity FLAC audio to your music player, website, or application. It's open, free, and community-driven.</p>
+        </header>
+
+        
+        <section class="dev-section">
+            <h2 class="section-title">Quick Start</h2>
+            <div class="dev-card">
+                <h3><i class="fas fa-bolt"></i> How It Works</h3>
+                <p>The Echo Music Lossless database is a single JSON file hosted on GitHub. It maps <strong>song + artist</strong> pairs to <strong>FLAC audio URLs</strong>. You fetch the JSON, match songs by name, and stream the corresponding audio.</p>
+                <div class="dev-flow">
+                    <div class="flow-step">
+                        <span class="flow-num">1</span>
+                        <span>Fetch <code>music.json</code></span>
+                    </div>
+                    <i class="fas fa-arrow-right flow-arrow"></i>
+                    <div class="flow-step">
+                        <span class="flow-num">2</span>
+                        <span>Match song + artist</span>
+                    </div>
+                    <i class="fas fa-arrow-right flow-arrow"></i>
+                    <div class="flow-step">
+                        <span class="flow-num">3</span>
+                        <span>Play lossless track</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="dev-section">
+            <h2 class="section-title">API Reference</h2>
+
+            <div class="dev-card">
+                <h3><i class="fas fa-database"></i> Lossless Database URL</h3>
+                <p>The primary endpoint to fetch the complete lossless database:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">ENDPOINT</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                    <pre><code>https://lossless.echomusic.fun/music.json</code></pre>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.88rem; color: var(--text-dim);">
+                    <i class="fas fa-info-circle"></i> This URL always serves the latest version from the <code>main</code> branch. Cache it on your server for performance.
+                </p>
+            </div>
+
+            <div class="dev-card">
+                <h3><i class="fas fa-file-code"></i> Response Schema</h3>
+                <p>The JSON file follows this structure:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">JSON</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                    <pre><code>{
+  "items": [
+    {
+      "song": "Blinding Lights",
+      "artist": "The Weeknd",
+      "url": "https://lossless.echomusic.fun/Music/blinding_lights.flac"
+    }
+  ]
+}</code></pre>
+                </div>
+
+                <div class="schema-table">
+                    <table>
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>items</code></td><td>Array</td><td>The list of all track entries</td></tr>
+                            <tr><td><code>items[].song</code></td><td>String</td><td>The song title (case-sensitive as contributed)</td></tr>
+                            <tr><td><code>items[].artist</code></td><td>String</td><td>The artist or band name</td></tr>
+                            <tr><td><code>items[].url</code></td><td>String</td><td>Direct URL to the audio file (<code>.flac</code>)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="dev-section">
+            <h2 class="section-title">Integration Examples</h2>
+
+            
+            <div class="dev-card">
+                <h3><i class="fab fa-js-square"></i> JavaScript / Web</h3>
+                <p>Fetch the database and find a track for a playing song:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">JavaScript</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                    <pre><code>const DATABASE_URL = 'https://lossless.echomusic.fun/music.json';
+
+// Fetch and cache the lossless database
+async function loadDB() {
+  const res = await fetch(DATABASE_URL);
+  const data = await res.json();
+  return data.items || [];
+}
+
+// Find a track for a given song + artist
+function findTrack(items, songTitle, artistName) {
+  const query = `${songTitle} ${artistName}`.toLowerCase();
+  return items.find(item => {
+    const entry = `${item.song} ${item.artist}`.toLowerCase();
+    return entry === query;
+  });
+}
+
+// Usage
+const db = await loadDB();
+const match = findTrack(db, 'Blinding Lights', 'The Weeknd');
+
+if (match) {
+  const audio = document.getElementById('audio-player');
+  audio.src = match.url;
+  audio.play();
+}</code></pre>
+                </div>
+            </div>
+
+            
+            <div class="dev-card">
+                <h3><i class="fas fa-play-circle"></i> HTML Audio Player</h3>
+                <p>A minimal HTML structure to play a lossless track in your music player:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">HTML</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                    <pre><code>&lt;div class="player-container" style="position: relative;"&gt;
+  &lt;audio id="audio-player" controls style="width: 100%;"&gt;&lt;/audio&gt;
+
+  &lt;!-- Your player UI goes on top --&gt;
+  &lt;div style="position: relative; z-index: 1;"&gt;
+    &lt;h2 id="song-title"&gt;Blinding Lights&lt;/h2&gt;
+    &lt;p id="artist-name"&gt;The Weeknd&lt;/p&gt;
+    &lt;!-- playback controls, progress bar, etc. --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+
+            
+            <div class="dev-card">
+                <h3><i class="fab fa-android"></i> Android / Kotlin</h3>
+                <p>Use <code>ExoPlayer</code> to play lossless audio in your Android app:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Kotlin</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                    <pre><code>// 1. Add ExoPlayer dependency in build.gradle
+// implementation("androidx.media3:media3-exoplayer:1.3.0")
+// implementation("androidx.media3:media3-ui:1.3.0")
+
+// 2. Fetch music.json (using OkHttp / Retrofit)
+suspend fun fetchDB(): List&lt;TrackEntry&gt; {
+    val response = httpClient.get(DATABASE_JSON_URL)
+    val json = JSONObject(response.body.string())
+    val items = json.getJSONArray("items")
+    return (0 until items.length()).map { i ->
+        val obj = items.getJSONObject(i)
+        TrackEntry(
+            song = obj.getString("song"),
+            artist = obj.getString("artist"),
+            url = obj.getString("url")
+        )
+    }
+}
+
+// 3. Play the audio
+fun playAudio(url: String, playerView: PlayerView) {
+    val player = ExoPlayer.Builder(context).build()
+    playerView.player = player
+
+    val mediaItem = MediaItem.fromUri(url)
+    player.setMediaItem(mediaItem)
+    player.prepare()
+    player.play()
+}</code></pre>
+                </div>
+            </div>
+
+            
+            <div class="dev-card">
+                <h3><i class="fab fa-apple"></i> iOS / Swift</h3>
+                <p>Use <code>AVPlayer</code> to play lossless audio in your iOS app:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Swift</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                    <pre><code>import AVKit
+
+struct TrackEntry: Codable {
+    let song: String
+    let artist: String
+    let url: String
+}
+
+struct TrackDB: Codable {
+    let items: [TrackEntry]
+}
+
+// Fetch the database
+func loadDB() async throws -> [TrackEntry] {
+    let url = URL(string: "https://lossless.echomusic.fun/music.json")!
+    let (data, _) = try await URLSession.shared.data(from: url)
+    let db = try JSONDecoder().decode(TrackDB.self, from: data)
+    return db.items
+}
+
+// Play audio
+func playAudio(urlString: String) {
+    guard let url = URL(string: urlString) else { return }
+    let player = AVPlayer(url: url)
+    player.play()
+
+    player.play()
+}</code></pre>
+                </div>
+            </div>
+
+            
+            <div class="dev-card">
+                <h3><i class="fab fa-python"></i> Python (Backend / Bot)</h3>
+                <p>Useful for Discord bots, Telegram bots, or backend services:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">Python</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                    <pre><code>import requests
+
+TRACK_URL = "https://lossless.echomusic.fun/music.json"
+
+def load_db():
+    """Fetch the full track database."""
+    response = requests.get(TRACK_URL)
+    response.raise_for_status()
+    return response.json().get("items", [])
+
+def find_track(items, song_title, artist_name):
+    """Find a matching track entry."""
+    query = f"{song_title} {artist_name}".lower()
+    for item in items:
+        entry = f"{item['song']} {item['artist']}".lower()
+        if entry == query:
+            return item
+    return None
+
+# Example usage
+db = load_db()
+track = find_track(db, "Starboy (feat. Daft Punk)", "The Weeknd")
+if track:
+    print(f"Track URL: {track['url']}")
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="dev-section">
+            <h2 class="section-title">Best Practices</h2>
+            <div class="instruction-grid">
+                <article class="step-card">
+                    <span class="step-number"><i class="fas fa-server"></i></span>
+                    <h3>Cache the Database</h3>
+                    <p>Don't fetch <code>music.json</code> on every song change. Load it once on startup and cache it locally. Refresh periodically (e.g., every 30 minutes) to pick up new community contributions.</p>
+                </article>
+                <article class="step-card">
+                    <span class="step-number"><i class="fas fa-search"></i></span>
+                    <h3>Fuzzy Matching</h3>
+                    <p>Song titles may not match exactly due to special characters, casing, or feat. tags. Use <strong>case-insensitive</strong> matching and strip common suffixes like <code>(feat. …)</code> for better hit rates.</p>
+                </article>
+                <article class="step-card">
+                    <span class="step-number"><i class="fas fa-video"></i></span>
+                    <h3>Support FLAC</h3>
+                    <p>Track URLs are <code>.flac</code>. On web, most modern browsers support it natively. For mobile, AVPlayer and ExoPlayer both support FLAC.</p>
+                </article>
+                <article class="step-card">
+                    <span class="step-number"><i class="fas fa-volume-up"></i></span>
+                    <h3>High Fidelity</h3>
+                    <p>Always ensure users are on a good connection when streaming lossless files, or offer a way to download them offline to save bandwidth.</p>
+                </article>
+            </div>
+        </section>
+
+        
+        <section class="dev-section">
+            <h2 class="section-title">Usage & Attribution</h2>
+            <div class="dev-card">
+                <h3><i class="fas fa-balance-scale"></i> License & Fair Use</h3>
+                <div class="dev-info-grid">
+                    <div class="dev-info-item">
+                        <div class="info-icon"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <strong>Open Source</strong>
+                            <p>The lossless database is GPL-3.0 licensed. You're free to use it in any project — commercial or personal.</p>
+                        </div>
+                    </div>
+                    <div class="dev-info-item">
+                        <div class="info-icon"><i class="fas fa-heart"></i></div>
+                        <div>
+                            <strong>Attribution</strong>
+                            <p>Please credit Echo Music Lossless in your app or website with a link back to <code>lossless.echomusic.fun</code>.</p>
+                        </div>
+                    </div>
+                    <div class="dev-info-item">
+                        <div class="info-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <div>
+                            <strong>Rate Limits</strong>
+                            <p>The JSON is hosted on GitHub raw CDN. Avoid polling more than once per minute. For high-traffic apps, mirror the data on your own CDN.</p>
+                        </div>
+                    </div>
+                    <div class="dev-info-item">
+                        <div class="info-icon"><i class="fas fa-users"></i></div>
+                        <div>
+                            <strong>Contribute Back</strong>
+                            <p>If your users discover new tracks, encourage them to submit via the <a href="contribute.html">Contribute Portal</a> so the whole community benefits.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div id="support-section" class="footer-content">
+            <div class="footer-credits">
+                <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.6;">Licensed under <a href="LICENSE" target="_blank">GPL-3.0</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function copyCode(btn) {
+            const codeBlock = btn.closest('.code-block');
+            const code = codeBlock.querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                }, 2000);
+            });
+        }
+    </script>
+    <script>
+        (function() {
+            const btn = document.getElementById('nav-hamburger');
+            const menu = document.getElementById('nav-links');
+            if (!btn || !menu) return;
+            btn.addEventListener('click', () => {
+                const open = menu.classList.toggle('nav-open');
+                btn.classList.toggle('nav-hamburger--open', open);
+                btn.setAttribute('aria-expanded', open);
+            });
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    menu.classList.remove('nav-open');
+                    btn.classList.remove('nav-hamburger--open');
+                    btn.setAttribute('aria-expanded', 'false');
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>
