@@ -10,7 +10,7 @@ This repository stores community-contributed FLAC files and uses a high-performa
 
 ---
 
-## ⚡ How it Works (Scatter-Gather Architecture)
+## How it Works (Scatter-Gather Architecture)
 
 To ensure this database can scale infinitely without Git merge conflicts, we do **not** allow users to manually edit the master `music.json` file. Instead:
 
