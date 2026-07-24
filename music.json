@@ -1,6 +1,231 @@
 {
   "items": [
     {
+      "song": "Perfect (Exceeder)",
+      "artist": "Mason, Princess Superstar",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/pinuaple-1784889042642-00_-_MASON_-_Perfect__Exceeder_.flac"
+    },
+    {
+      "song": "Vaarayo Vaarayo",
+      "artist": "Harris Jayaraj",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784881901204-Vaarayo_Vaarayo_-_P._Unnikrishnan__Chinmayi_Sripada___Megha.flac"
+    },
+    {
+      "song": "Uprising",
+      "artist": "Muse",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/82av29-1784881670883-Muse_-_Uprising.flac"
+    },
+    {
+      "song": "Inisai Alaparaiye",
+      "artist": "A.R. Rahman, Reshma, Vairamuthu",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784883269927-Inisai_Alaparaiye_-_A.R._Rahman__Reshma___Vairamuthu.flac"
+    },
+    {
+      "song": "MAMI 100PRE SABE (INTERLUDE)",
+      "artist": "Alvaro Diaz, Nsqk",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880848630-Alvaro_D_az_-_MAMI_100PRE_SABE__INTERLUDE_.flac"
+    },
+    {
+      "song": "MALASNOTICIAS.",
+      "artist": "Alvaro Diaz, LATIN MAFIA",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880738549-Alvaro_D_az_-_MALASNOTICIAS..flac"
+    },
+    {
+      "song": "Parano (feat. DDB)",
+      "artist": "Frozy",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784885869927-Parano__feat._DDB__-______.flac"
+    },
+    {
+      "song": "Yun Hi",
+      "artist": "Mohit Chauhan | Backing Vocals : Ujjaini",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rockyklebitz73-1784889491245-Yun_Hi.flac"
+    },
+    {
+      "song": "YOKO",
+      "artist": "Alvaro Diaz",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784881550559-Alvaro_D_az_-_YOKO.flac"
+    },
+    {
+      "song": "One Of The Girls",
+      "artist": "The Weeknd, JENNIE, Lily Rose Depp",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784881122320-The_Weeknd_-_One_Of_The_Girls.flac"
+    },
+    {
+      "song": "Ennadi Maayavi Nee (From \"VadaChennai\")",
+      "artist": "Santhosh Narayanan, Vivek, Sid Sriram",
+      "url": "https://lossless.echomusic.fun/Music/rupeshrn-ennadi_maayavi_nee_from_vadachennai_.flac"
+    },
+    {
+      "song": "Scooter",
+      "artist": "Qypthone",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/pinuaple-1784885705987-00_-_Qypthone_-_Scooter.flac"
+    },
+    {
+      "song": "Kodi Varudhu",
+      "artist": "Surya, Nagoor Saleem and Minmini",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784888625292-Kodi_Varudhu_-_Swatkat__Nagoor_Saleem___Minmini.flac"
+    },
+    {
+      "song": "Babysita </3",
+      "artist": "Alvaro Diaz",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880586391-Alvaro_D_az_-_Babysita___3.flac"
+    },
+    {
+      "song": "Honest",
+      "artist": "The Chainsmokers",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880106462-The_Chainsmokers_-_Honest.flac"
+    },
+    {
+      "song": "Nineteen",
+      "artist": "Rob Araujo",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/pinuaple-1784885109217-00_-_Rob_Araujo_-_Nineteen.flac"
+    },
+    {
+      "song": "Uyire",
+      "artist": "Narayani Gopan, Mithun Jayaraj",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784885954844-Uyire__From_Minnal_Murali___-_Shaan_Rahman__Narayani_Gopan___Mithun_Jayaraj.flac"
+    },
+    {
+      "song": "Solace (Slowed)",
+      "artist": "Txmy",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784883794687-Solace__Slowed__-_Txmy.flac"
+    },
+    {
+      "song": "Unakaga",
+      "artist": "A.R. Rahman, Sreekanth Hariharan, Madhura Dhara Talluri and Vivek",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784886158884-Unakaga_-_A.R._Rahman__Sreekanth_Hariharan___Madhura_Dhara_Talluri.flac"
+    },
+    {
+      "song": "PERDISTE EL EMMY.",
+      "artist": "Alvaro Diaz y Tainy",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880675319-Alvaro_D_az_-_PERDISTE_EL_EMMY..flac"
+    },
+    {
+      "song": "OG Black",
+      "artist": "Alvaro Diaz, Randy",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784881660033-Alvaro_D_az_-_OG_Black.flac"
+    },
+    {
+      "song": "NO PODEMOS SER AMIGOS.",
+      "artist": "Alvaro Diaz",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880789993-Alvaro_D_az_-_NO_PODEMOS_SER_AMIGOS..flac"
+    },
+    {
+      "song": "Thuli Thuli",
+      "artist": "Yuvan Shankar Raja, Haricharan, Tanvi Shah, Na. Muthukumar",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784881993446-Various_Interprets_-_Thuli_Thuli.flac"
+    },
+    {
+      "song": "Feel Good Inc.",
+      "artist": "Franklaay, Melodyz Town",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784886219326-Feel_Good_Inc._-_Franklaay___Melodyz_Town.flac"
+    },
+    {
+      "song": "Akkam Pakkam",
+      "artist": "Sadhana Sargam",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784888419803-Akkam_Pakkam_-_Sadhana_Sargam.flac"
+    },
+    {
+      "song": "Yebba\u2019s Heartbreak",
+      "artist": "Drake, Yebba",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880988514-Drake_-_Yebba_s_Heartbreak.flac"
+    },
+    {
+      "song": "Last Day Alive (con Florida Georgia Line)",
+      "artist": "The Chainsmokers",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880366025-The_Chainsmokers_-_Last_Day_Alive__feat._Florida_Georgia_Line_.flac"
+    },
+    {
+      "song": "Wake Up Alone (con Jhen\u00e9 Aiko)",
+      "artist": "The Chainsmokers, Andrew Taggart",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880228507-The_Chainsmokers_-_Wake_Up_Alone__feat._Jhen__Aiko_.flac"
+    },
+    {
+      "song": "LENTITO",
+      "artist": "Alvaro Diaz",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784881335013-Alvaro_D_az_-_LENTITO.flac"
+    },
+    {
+      "song": "People of the Moon",
+      "artist": "Nu Genea",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/pinuaple-1784884756950-00_-_Nu_Genea_-_People_of_the_Moon.flac"
+    },
+    {
+      "song": "bye",
+      "artist": "Altare",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784884554102-bye_-_Altare.flac"
+    },
+    {
+      "song": "Borderline",
+      "artist": "Tame Impala",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784886271847-Borderline_-_Tame_Impala.flac"
+    },
+    {
+      "song": "Turbo Jose",
+      "artist": "Sekhar Menon, Resmi Sateesh, The Imbachi, Azuran, ItsPc, Greesh and Street Academics",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/hopperak47-hash-1784885976286-62_-_Turbo_Jose_-_Sekhar_Menon__Resmi_Sateesh__The_Imbachi__Azuran__ItsPC__Greesh___Street_Academics.flac"
+    },
+    {
+      "song": "Let Her Go",
+      "artist": "Passenger",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/utubekbentertainment-cloud-1784885419612-Let_Her_Go_-_Passenger.flac"
+    },
+    {
+      "song": "Idhar Zara Sa Dekh Lo",
+      "artist": "Shikhar, Yashika Sikka",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/xengaming2003-sudo-1784883152122-Idhar_Zara_Sa_Dekh_Lo_-_Shikhar__Yashika_Sikka.flac"
+    },
+    {
+      "song": "PARANORMAL",
+      "artist": "Tainy, Alvaro Diaz",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784881496196-Tainy_-_PARANORMAL.flac"
+    },
+    {
+      "song": "Feet Don't Fail Me Now",
+      "artist": "Joy Crookes",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784884363848-Feet_Don_t_Fail_Me_Now_-_Joy_Crookes.flac"
+    },
+    {
+      "song": "Apocalypse Please",
+      "artist": "Muse",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/82av29-1784881789844-Muse_-_Apocalypse_Please.flac"
+    },
+    {
+      "song": "18+1",
+      "artist": "Alvaro Diaz, Jesse Baez",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784881613051-Alvaro_D_az_-_18_1.flac"
+    },
+    {
+      "song": "\u3059\u305a\u3081 - Suzume (feat. Toaka)",
+      "artist": "RADWIMPS",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/xengaming2003-sudo-1784883056423-Suzume__feat._Toaka__-_RADWIMPS.flac"
+    },
+    {
+      "song": "BIMEL.",
+      "artist": "Alvaro Diaz",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784881716894-Alvaro_D_az_-_BIMEL..flac"
+    },
+    {
+      "song": "Young",
+      "artist": "The Chainsmokers",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880294339-The_Chainsmokers_-_Young.flac"
+    },
+    {
+      "song": "Gongoli (2012)",
+      "artist": "\u00c1lvaro D\u00edaz, Kyoshi Reyes",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784881445681-Alvaro_D_az_-_Gongoli__2012_.flac"
+    },
+    {
+      "song": "SIN PODERES",
+      "artist": "Alvaro Diaz, Young Cister",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/emanuelrd19-1784880892892-Alvaro_D_az_-_SIN_PODERES.flac"
+    },
+    {
+      "song": "Koodamela Koodavechi",
+      "artist": "D. Imman, V.V. Prassanna, Vandana Srinivasan and Yugabharathi",
+      "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rabin-v-1784883479022-Koodamela_Koodavechi_-_D._Imman__V.V._Prassanna___Vandana_Srinivasan.flac"
+    },
+    {
       "song": "Aashiqana",
       "artist": "Chaar Diwaari, Indian Ocean, & gini",
       "url": "https://raw.githubusercontent.com/EchoMusicApp/Lossless-Database/main/Music/rtxxxzz-1784876386025-Aashiqana_-_Chaar_Diwaari__Indian_Ocean__gini.flac"
